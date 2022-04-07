@@ -1,5 +1,6 @@
 const gridContainer = document.querySelector('.grid-container');
 
+//generate the number of rows and columns
 function setGrid(size) {
     gridContainer.setAttribute('style', ' \
     display: grid; \
@@ -7,7 +8,8 @@ function setGrid(size) {
     grid-template-rows: repeat('+ size + ', auto);');
 }
 
-function populateGrid(size){
+//Adds divs to each grid section
+function populateGrid(size) {
     for (let i = 0; i < size * size; i++) {
         gridItem = document.createElement('div');
         gridItem.setAttribute('class', 'grid-block');
@@ -22,15 +24,43 @@ function generateGrid(size) {
     populateGrid(size);
 }
 
-function setColor(e){
-    boxClicked = document.querySelector('#'+this.id);
-    console.log(boxClicked);
-    boxClicked.setAttribute('style','background-color: black;');
+function setColor(e) {
+    boxClicked = document.querySelector('#' + this.id);
+    boxClicked.setAttribute('style', 'background-color: black;');
 }
 
+function resetCanvas() {
+    allGridItems.forEach(div => div.setAttribute('style', 'background-color: white;'));
+}
+
+function deleteGrid() {
+    document.querySelectorAll(".grid-block").forEach(e => e.remove());
+}
+
+function setListenters(){
+    let allGridItems = document.querySelectorAll('.grid-block');
+    allGridItems.forEach(div => div.addEventListener('mouseover', setColor));
+    document.getElementById("reset").onclick = function () { resetCanvas() };
+
+}
+    
 let size = 20;
 generateGrid(size);
-const allGridItems = document.querySelectorAll('.grid-block');
-allGridItems.forEach(div => div.addEventListener('click',setColor));
-document.getElementById("reset").onclick = function() {myFunction()};
+setListenters();
+let allGridItems = document.querySelectorAll('.grid-block');
+document.getElementById("reset").onclick = function () { resetCanvas() };
 
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.textContent = slider.value + " x " + slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function () {
+    output.textContent = this.value + " x " + slider.value;
+} 
+slider.onchange = function () {
+    size = slider.value
+    deleteGrid();
+    generateGrid(size);
+    setListenters();
+} 
