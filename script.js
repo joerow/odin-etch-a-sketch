@@ -11,7 +11,7 @@ function populateGrid(size){
     for (let i = 0; i < size * size; i++) {
         gridItem = document.createElement('div');
         gridItem.setAttribute('class', 'grid-block');
-        gridItem.setAttribute('id', ('grid-item' + (i + 1)));
+        gridItem.setAttribute('id', ('grid-block-' + (i + 1)));
         gridItem.textContent = " "
         gridContainer.appendChild(gridItem);
     }
@@ -22,6 +22,15 @@ function generateGrid(size) {
     populateGrid(size);
 }
 
-let size = 5;
+function setColor(e){
+    boxClicked = document.querySelector('#'+this.id);
+    console.log(boxClicked);
+    boxClicked.setAttribute('style','background-color: black;');
+}
+
+let size = 20;
 generateGrid(size);
+const allGridItems = document.querySelectorAll('.grid-block');
+allGridItems.forEach(div => div.addEventListener('click',setColor));
+document.getElementById("reset").onclick = function() {myFunction()};
 
