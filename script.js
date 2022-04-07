@@ -30,6 +30,7 @@ function setColor(e) {
 }
 
 function resetCanvas() {
+    let allGridItems = document.querySelectorAll('.grid-block');
     allGridItems.forEach(div => div.setAttribute('style', 'background-color: white;'));
 }
 
@@ -40,19 +41,16 @@ function deleteGrid() {
 function setListenters(){
     let allGridItems = document.querySelectorAll('.grid-block');
     allGridItems.forEach(div => div.addEventListener('mouseover', setColor));
-    document.getElementById("reset").onclick = function () { resetCanvas() };
-
 }
     
 let size = 20;
 generateGrid(size);
 setListenters();
-let allGridItems = document.querySelectorAll('.grid-block');
-document.getElementById("reset").onclick = function () { resetCanvas() };
 
 var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.textContent = slider.value + " x " + slider.value; // Display the default slider value
+var output = document.getElementById("container-size-label");
+output.textContent = size + " x " + size; // Display the default slider value
+
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function () {
@@ -63,4 +61,5 @@ slider.onchange = function () {
     deleteGrid();
     generateGrid(size);
     setListenters();
-} 
+}
+document.getElementById("reset").onclick = function () { resetCanvas() };
