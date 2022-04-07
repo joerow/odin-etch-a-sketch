@@ -38,11 +38,13 @@ function deleteGrid() {
     document.querySelectorAll(".grid-block").forEach(e => e.remove());
 }
 
-function setListenters(){
+function setListenters() {
     let allGridItems = document.querySelectorAll('.grid-block');
     allGridItems.forEach(div => div.addEventListener('mouseover', setColor));
+    document.getElementById("reset").onclick = function () { resetCanvas() };
+
 }
-    
+
 let size = 20;
 generateGrid(size);
 setListenters();
@@ -55,11 +57,11 @@ output.textContent = size + " x " + size; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function () {
     output.textContent = this.value + " x " + slider.value;
-} 
+}
+// when slider is 'released' the value is collected to generate the grid
 slider.onchange = function () {
     size = slider.value
     deleteGrid();
     generateGrid(size);
     setListenters();
 }
-document.getElementById("reset").onclick = function () { resetCanvas() };
